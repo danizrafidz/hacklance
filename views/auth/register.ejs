@@ -4,33 +4,64 @@
 
     <body>
         <%- include('../_partials/_navbar', {heading: 'Hacklance Register User' }) %>
-            <div>
-                <% if (errors) { %>
-                    <% errors.split(',').forEach(err=> { %>
-                        <p style="color: red;">*<%= err %>
-                        </p>
-                        <% }) %>
-                            <% } %>
-            </div>
 
-            <div class="flex justify-center mt-6">
+        <div class="flex justify-center mt-6">
                 <fieldset class="fieldset px-12 py-6 bg-base-200 border border-base-300 rounded-box">
                     <form action="/register" method="POST">
                         <legend class="fieldset-legend">Register</legend><br>
 
                         <label class="fieldset-label">Username</label><br>
+                        <div style="color: red;">
+                            <% if (errors) { %>
+                                <% const errReq = errors.split(',').find(err => err === "Username required!" ) %>
+                                <p>*<%= errReq %></p>   
+                                <% } %>
+
+                        </div>
                         <input type="text" class="input" name="username" placeholder="e.g: johndoe"><br><br>
 
+
                         <label class="fieldset-label">Name</label><br>
+                        <div style="color: red;">
+                            <% if (errors) { %>
+                                <% const errReq = errors.split(',').find(err => err === "Name required!" ) %>
+                                <p>*<%= errReq %></p>   
+                                <% } %>
+                        </div>
                         <input type="text" class="input" name="name" placeholder="e.g: John Doe"><br><br>
 
+
                         <label class="fieldset-label">Email</label><br>
+                        <div style="color: red;">
+                            <% if (errors) { %>
+                                <% const errReqs = errors.split(',').filter(err => err.includes("Email required!") || err.includes("Input is not an email!")); %>
+                                <% errReqs.forEach(errReq => { %>
+                                  <p>*<%= errReq.trim() %></p>
+                                <% }) %>
+                              <% } %>
+                              
+                        </div>
                         <input type="text" class="input" name="email" placeholder="e.g: john.doe@mail.com"><br><br>
 
+
                         <label class="fieldset-label">Password</label><br>
+                        <div style="color: red;">
+                            <% if (errors) { %>
+                                <% const errReq = errors.split(',').find(err => err === "Password required!" ) %>
+                                <p>*<%= errReq %></p>   
+                                <% } %>
+                        </div>
                         <input type="password" class="input" name="password" placeholder="e.g: 12345"><br><br>
 
                         <label class="fieldset-label">Role</label><br>
+
+
+                        <div style="color: red;">
+                            <% if (errors) { %>
+                                <% const errReq = errors.split(',').find(err => err === "Role required" ) %>
+                                <p>*<%= errReq %></p>   
+                                <% } %>
+                        </div>
                         <select class="select" name="role">
                             <option selected disabled>--Select Role--</option>
                             <option value="client">Client</option>
@@ -40,6 +71,7 @@
                         <button class="btn btn-neutral mt-4" type="submit" value="Register">Register</button>
                     </form>
                 </fieldset>
+                
             </div>
     </body>
 

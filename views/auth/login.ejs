@@ -7,18 +7,18 @@
             <div class="hero bg-base-200 min-h-screen">
 
                 <div class="hero-content flex-col lg:flex-row">
-                   
+
                     <div class=" text-center lg:text-left mr-20">
-                        <h1 class="text-5xl font-bold">Hackerlance</h1>
+                        <h1 class="text-5xl font-bold">Hacklance</h1>
                         <p class="py-6">
-                            Providing the best services everywhere, everytime.
+                            Providing the best solution for you everywhere, everytime.
                         </p>
                     </div>
 
                     <div class="card bg-base-100 ml-20 w-full max-w-sm shrink-0 shadow-2xl">
 
                         <div class="card-body">
-                            
+
                             <div style="color: red;">
                                 <% if (errors) { %>
                                     <p>*<%= errors %>
@@ -44,12 +44,22 @@
                                             placeholder="password..."><br><br>
                                     </div>
 
+
                                     <div>
-                                        <a class="link link-hover text-sm">Forgot password?</a><br><br>
+                                        <a class="link link-hover text-sm">Forgot password?</a>
+                                        <br>
+                                    </div>
+
+                                    <div class="text-sm">
+                                        <p>Don't have an account? <a class="link link-hover link-primary text-sm"
+                                                onclick="location.href='/register'">Sign up here!</a>
+                                        </p>
+                                        <br>
                                     </div>
 
                                     <div class="flex justify-center ">
-                                        <button class="btn btn-neutral w-full rounded-box" type="submit" value="Login">Login</button>
+                                        <button class="btn btn-neutral w-full rounded-box" type="submit"
+                                            value="Login">Login</button>
                                     </div>
 
 
