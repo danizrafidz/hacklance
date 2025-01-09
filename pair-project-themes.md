@@ -1,11 +1,11 @@
 # Phase 1 Pair Project Themes
 ## Overview
 Setiap Team Pair Project akan mendapatkan tema challenqe yang ditentukan oleh instruktur.
-Silakan tanyakan kepada buddy instruktur bila karmu belum mendapat tema challenge-.
+Silakan tanyakan kepada buddy instruktur bila kamu belum mendapat tema challenge.
 
 ## Requirement Level Database
 1. Schema Table (ERD)
-2. Terdapat entitas7table wajlb yaitu Users dengan atibute yang harus ada:
+2. Terdapat entitas/table **wajlb** yaitu Users dengan atibute yang harus ada:
     a. email
     b. paSSword
     c. role
@@ -31,24 +31,21 @@ dihitung 1 validasi)
 5. Menggunakan method-method sequelize yand bertujuan untuk CRUD
 6. Terdapat **hooks**
 7. Membuat dan menggunakan **helper**
-8. Menggunakan mekanisme promise chaining (notifikasi delete kaya challenge
-6)
+8. Menggunakan mekanisme promise chaining (notifikasi delete kaya challenge 6)
+
 ## Requirement Pages
 1. Landing page (menggambarkan project)
 2. Register & login page
 3. Memiliki 1 page yang menampilkan data gabungan dari 2 table atau lebih
-(gunakan eager loading dari sequelize)
+(gunakan **eager loading** dari sequelize)
 
 ## Requirement Explore
-1. Membuat sistem login dengan middleware, session & bcryptis
+1. Membuat sistem login dengan middleware, session & [bcryptis](https://www.npmjs.com/package/bcryptjs)
 2. Membuat fitur MVP(Minimal Valuable Package) (fitur unik dengan menggunakan
 package yang belum pernah dibahas saat lecture)
 
 ## Tema Pair project
-Berikut adalah list entitas/tabel sesuai dengan tema terkait. Kamu boleh menambahkan table
-maupun field lainnya bila memang dibutuhkan. Setiap tema harus mengandung minimal
-masing-masing 1 asosiasi (1 to 1, 1 to M, and M to M).
-Entitas/Table User pasti dimiliki cleh setiap tema. List field user:
+Berikut adalah list entitas/tabel sesuai dengan tema terkait. Kamu boleh menambahkan table maupun field lainnya bila memang dibutuhkan. Setiap tema harus mengandung **minimal masing-masing 1 asosiasi (1 to 1, 1 to M, and M to M). Entitas/Table User pasti dimiliki cleh setiap tema. List field user**:
 User
 e id
 @ username:string (optional)
