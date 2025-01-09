@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: 'Contract Created'}) %>
+<body>
+    <%- include('_partials/_navbar', {heading: 'Contract Created'}) %>
+
+    <h1>You've created a contract with <%= bid.Hacklancer.username %></h1>
+    <button onclick="location.href='/contracts'">Check your contracts</button>
+</body>
+</html>

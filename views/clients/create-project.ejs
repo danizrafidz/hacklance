@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: 'Post New Project'}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: 'Post New Project'}) %>
+    <!-- skills -->
+
+    <form action="/projects/create" method="POST">
+        <label>Title</label><br>
+        <input type="text" name="title" placeholder="e.g. Bug Fixing"><br><br>
+
+        <label>Description</label><br>
+        <textarea name="description" placeholder="e.g. Please fix my bug on Express Js related to Session"></textarea><br><br>
+
+        <label>Budget</label><br>
+        <input type="number" name="budget" placeholder="e.g. 20"><br><br>
+
+        <label>Skill Requirement</label><br>
+        <select name="SkillId">
+            <option selected disabled>--Select Skill--</option>
+            <% skills.forEach(skill => { %>
+                <option value="<%= skill.id %>"><%= skill.name %></option>
+            <% }) %>
+        </select><br><br>
+
+        <input type="submit" value="Post Project">
+    </form>
+</body>
+</html>

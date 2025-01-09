@@ -20,8 +20,7 @@
                 <td><%= user.email %></td>
                 <td><%= user.role %></td>
                 <td>
-                    <button onclick="location.href='/users/<%= user.id %>/set-role'">Set Role</button>
-                    <button onclick="location.href='/users/<%= user.id %>/profile'">View Profile</button>
+                    <button style="background-color: red;" onclick="location.href='/users/<%= user.id %>/ban'">Ban</button>
                 </td>
             </tr>
         <% }) %>

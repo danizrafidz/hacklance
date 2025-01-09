@@ -18,13 +18,67 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Project.init({
-    title: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    budget: DataTypes.DECIMAL,
+    title: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Title required',
+        },
+        notEmpty: {
+          msg: 'Title required!'
+        }
+      },
+    },
+    description: {
+      type: DataTypes.TEXT,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Description required',
+        },
+        notEmpty: {
+          msg: 'Description required!'
+        }
+      },
+    },
+    imageURL: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Image required',
+        },
+        notEmpty: {
+          msg: 'Image required!'
+        }
+      },
+    },
+    budget: {
+      type: DataTypes.DECIMAL,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Budget required',
+        },
+        notEmpty: {
+          msg: 'Budget required!'
+        }
+      },
+    },
     status: DataTypes.ENUM('open', 'in progress', 'completed'),
     SkillId: DataTypes.INTEGER,
     ClientId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (project, options) => {
+        project.status = 'open'
+      },
+    },
     sequelize,
     modelName: 'Project',
   });

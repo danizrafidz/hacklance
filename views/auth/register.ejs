@@ -1,36 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('../_partials/_head', {title: 'Hacklance Register User'}) %>
+    <%- include('../_partials/_head', {title: 'Hacklance Register'}) %>
 <body>
-    <%- include('../_partials/_navbar', {heading: 'Hacklance Register User'}) %>
+    <%- include('../_partials/_navbar', {heading: 'Choose your side!'}) %>
 
-    <% if (errors) { %>
-        <% errors.split(',').forEach(err => { %>
-            <p style="color: red;">*<%= err %></p>
-        <% }) %>
-    <% } %> 
-
-    <form action="/register" method="POST">
-        <label>Username</label><br>
-        <input type="text" name="username" placeholder="e.g: johndoe"><br><br>
-
-        <label>Name</label><br>
-        <input type="text" name="name" placeholder="e.g: John Doe"><br><br>
-
-        <label>Email</label><br>
-        <input type="text" name="email" placeholder="e.g: john.doe@mail.com"><br><br>
-        
-        <label>Password</label><br>
-        <input type="password" name="password" placeholder="e.g: 12345"><br><br>
-
-        <label>Role</label><br>
-        <select name="role">
-            <option selected disabled>--Select Role--</option>
-            <option value="client">Client</option>
-            <option value="hacklancer">Hacklancer</option>
-        </select><br><br>
-
-        <input type="submit" value="Register">
-    </form>
+    <button class="btn-register" onclick="location.href='/register?role=client'">Client</button>
+    <button class="btn-register" onclick="location.href='/register?role=hacklancer'">Hacklancer</button>
 </body>
 </html>

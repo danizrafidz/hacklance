@@ -17,11 +17,59 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   HacklancerProfile.init({
-    bio: DataTypes.TEXT,
-    profilePicture: DataTypes.STRING,
-    portfolioURL: DataTypes.STRING,
+    bio: {
+      type: DataTypes.TEXT,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Bio required',
+        },
+        notEmpty: {
+          msg: 'Bio required!'
+        }
+      },
+    },
+    profilePicture: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Profile Picture required',
+        },
+        notEmpty: {
+          msg: 'Profile Picture required!'
+        }
+      },
+    },
+    portfolioURL: {
+      type: DataTypes.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Portfolio required',
+        },
+        notEmpty: {
+          msg: 'Portfolio required!'
+        }
+      },
+    },
     HacklancerId: DataTypes.INTEGER,
-    SkillId: DataTypes.INTEGER
+    SkillId: {
+      type: DataTypes.INTEGER,
+      unique: true,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Skill required',
+        },
+        notEmpty: {
+          msg: 'Skill required!'
+        }
+      },
+    },
   }, {
     sequelize,
     modelName: 'HacklancerProfile',

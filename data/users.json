@@ -1,47 +1,56 @@
 [
-  {
-      "id": 1,
-      "username": "johndoe",
-      "name": "John Doe",
-      "email": "johndoe@example.com",
-      "password": "hashedPassword1",
-      "role": "client",
-      "balance": 100.50
-  },
-  {
-      "id": 2,
-      "username": "janesmith",
-      "name": "Jane Smith",
-      "email": "janesmith@example.com",
-      "password": "hashedPassword2",
-      "role": "hacklancer",
-      "balance": 2500.75
-  },
-  {
-      "id": 3,
-      "username": "alicejohnson",
-      "name": "Alice Johnson",
-      "email": "alicejohnson@example.com",
-      "password": "hashedPassword3",
-      "role": "admin",
-      "balance": 0.00
-  },
-  {
-      "id": 4,
-      "username": "bobbrown",
-      "name": "Bob Brown",
-      "email": "bobbrown@example.com",
-      "password": "hashedPassword4",
-      "role": "client",
-      "balance": 500.00
-  },
-  {
-      "id": 5,
-      "username": "eveadams",
-      "name": "Eve Adams",
-      "email": "eveadams@example.com",
-      "password": "hashedPassword5",
-      "role": "hacklancer",
-      "balance": 3200.00
-  }
+    {
+        "id": 1,
+        "username": "aliceclient",
+        "name": "Alice Client",
+        "email": "alice@example.com",
+        "password": "$10$2gTuf4GMVBXs4YKknoF1IeQI8Htjd5AOzVx68tQYL58zCmqh0sQuq",
+        "role": "client",
+        "balance": 5000.00
+    },
+    {
+        "id": 2,
+        "username": "boblancer",
+        "name": "Bob Lancer",
+        "email": "bob@example.com",
+        "password": "$10$2gTuf4GMVBXs4YKknoF1IeQI8Htjd5AOzVx68tQYL58zCmqh0sQuq",
+        "role": "hacklancer",
+        "balance": 2000.00
+    },
+    {
+        "id": 3,
+        "username": "charlielancer",
+        "name": "Charlie Lancer",
+        "email": "charlie@example.com",
+        "password": "$10$2gTuf4GMVBXs4YKknoF1IeQI8Htjd5AOzVx68tQYL58zCmqh0sQuq",
+        "role": "hacklancer",
+        "balance": 1800.00
+    },
+    {
+        "id": 4,
+        "username": "danalancer",
+        "name": "Dana Lancer",
+        "email": "dana@example.com",
+        "password": "$10$2gTuf4GMVBXs4YKknoF1IeQI8Htjd5AOzVx68tQYL58zCmqh0sQuq",
+        "role": "hacklancer",
+        "balance": 1500.00
+    },
+    {
+        "id": 5,
+        "username": "eveclient",
+        "name": "Eve Client",
+        "email": "eve@example.com",
+        "password": "$10$2gTuf4GMVBXs4YKknoF1IeQI8Htjd5AOzVx68tQYL58zCmqh0sQuq",
+        "role": "client",
+        "balance": 7000.00
+    },
+    {
+        "id": 6,
+        "username": "admin1",
+        "name": "Admin Alpha",
+        "email": "admin.alpha@mail.com",
+        "password": "$10$2gTuf4GMVBXs4YKknoF1IeQI8Htjd5AOzVx68tQYL58zCmqh0sQuq",
+        "role": "admin",
+        "balance": 99000.00
+    }
 ]

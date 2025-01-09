@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: 'Your Contracts'}) %>
+<body>
+    <%- include('_partials/_navbar', {heading: 'Your Contracts'}) %>
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Fee</th>
+            <th>Terms</th>
+            <th>Status</th>
+            <th>Project</th>
+            <th>Contractor</th>
+            <th>Action</th>
+        </tr>
+
+        <% contracts.forEach((contract, i) => { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= formatToCurrency(contract.fee) %></td>
+                <td><%= contract.terms %></td>
+                
+                <% if (contract.isCompleted === true) { %>
+                    <td style="background-color: green;">Completed</td>
+                <% } else if (contract.isCompleted === false) { %>
+                    <td style="background-color: red;">Not Done</td>
+                <% } %>
+
+                <td><%= contract.Project.title %></td>
+                <td><%= contract.User.username %></td>
+
+                <% if (contract.isCompleted === false) { %>
+                    <td>
+                        <button onclick="location.href='/contracts/<%= contract.id %>/complete'">Complete</button>
+                    </td>
+                <% } %>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

@@ -1,4 +1,4 @@
-let { User, Skill, Project, Service, Bid } = require('../models')
+let { User, Skill, Project, Service, Bid, HacklancerProfile, Contract, Review } = require('../models')
 const { Op, Sequelize } = require('sequelize')
 const { formatToCurrency } = require('../helpers/helpers')
 const bcrypt = require('bcryptjs')
@@ -6,88 +6,60 @@ const bcrypt = require('bcryptjs')
 class Controller {
     static async home(req, res) {
         try {
-            const { user } = req.session
+            const { userSession } = req.session
 
-            res.render('home', { user })
+            res.render('home', { user: userSession })
         } catch (error) {
             console.log(error);
             res.send(error)
         }
     }
-    static async renderRegister(req, res) { //register [GET]
-        try {
-            const { errors } = req.query
-
-            res.render('auth/register', { errors })
-        } catch (error) {
-            console.log(error);
-            res.send(error)
-        }
-    }
-    static async handlerRegister(req, res) { //register [POST]
-        try {
-            let { username, name, email, password, role } = req.body
-
-            await User.create({ username, name, email, password, role })
-            res.redirect('/login')
-        } catch (error) {
-            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
-                let errors = error.errors.map(err => err.message)
-                res.redirect(`/register?errors=${errors}`)
-            } else {
-                console.log(error);
-                res.send(error)
-            }
-        }
-    }
-    static async renderLogin(req, res) { //login
-        try {
-            const { success, errors } = req.query
-
-            res.render('auth/login', { success, errors })
-        } catch (error) {
-            console.log(error);
-            res.send(error)
-        }
-    }
-    static async handlerLogin(req, res) { //login
-        try {
-            let { username, password } = req.body
-
-            let findUser = await User.findOne({
-                where: { username }
-            })
-
-            if (!findUser) {
-                throw 'Username not found!'
-            }
-            let checkPassword = bcrypt.compareSync(password, findUser.password);
-            if (!checkPassword) {
-                throw 'Password incorrect!'
-            }
-
-            req.session.user = findUser
-            res.redirect('/')
-        } catch (error) {
-            res.redirect(`/login?errors=${error}`)
-        }
-    }
-    static logout(req, res) {
-        req.session.destroy((err) => {
-            if (err) {
-                res.send(err)
-            } else {
-                res.redirect('/login?success=You have been logged out')
-            }
-        })
-    }
-
     static async users(req, res) { //users
         try {
-            const { user } = req.session
+            const { userSession } = req.session
 
             let users = await User.findAll()
-            res.render('users', { user, users })
+            res.render('users', { user: userSession, users })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async banUser(req, res) { //users/:userId/ban
+        try {
+            const { userId } = req.params
+
+            await User.destroy({
+                where: {
+                    id: userId
+                }
+            })
+            res.redirect('/users')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async hacklancerProfile(req, res) { //hacklancer/profile/:HacklancerId
+        try {
+            const { HacklancerId } = req.params
+
+            let hacklancer = await User.findOne({
+                include: [
+                    {
+                        model: HacklancerProfile,
+                        include: {
+                            model: Review,
+                            include: {
+                                model: User,
+                                as: 'Client'
+                            }
+                        }
+                    },
+                ],
+                where: { id: HacklancerId }
+            })
+            res.render('hacklancer-profile', { hacklancer })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -95,14 +67,13 @@ class Controller {
     }
     static async projects(req, res) { //projects
         try {
-            const { user } = req.session
+            const { userSession } = req.session
 
             let projects = await Project.findAll({
-                include: [User, Skill],
+                include: [User, Skill, Bid],
                 order: [['status', 'ASC']]
             })
-
-            res.render('projects', { user, projects, formatToCurrency })
+            res.render('projects', { user: userSession, projects, formatToCurrency })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -110,24 +81,29 @@ class Controller {
     }
     static async services(req, res) { //services
         try {
-            const { user } = req.session
+            const { userSession } = req.session
 
             let services = await Service.findAll({
-                include: [User, Skill]
+                include: [
+                    {
+                        model: Skill,
+                    },
+                    {
+                        model: User,
+                        as: 'Hacklancer'
+                    }
+                ],
             })
-            res.render('services', { user, services, formatToCurrency })
+            res.render('services', { user: userSession, services, formatToCurrency })
         } catch (error) {
             console.log(error);
             res.send(error)
         }
     }
-
-
-    // BUG
     static async bids(req, res) { //projects/:ProjectId/bids
         try {
+            const { userSession } = req.session
             const { ProjectId } = req.params
-            const { user } = req.session
 
             let project = await Project.findByPk(ProjectId)
             let bids = await Bid.findAll({
@@ -140,10 +116,198 @@ class Controller {
                         as: 'Hacklancer'
                     }
                 ],
-                where: { ProjectId }
+                where: {
+                    ProjectId: ProjectId,
+                },
+                order: [['status', 'ASC']]
             })
-            // res.send(bids)
-            res.render('bids', { user, bids, project, formatToCurrency })
+            res.render('bids', { user: userSession, bids, project, formatToCurrency })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async renderCreateProject(req, res) { //projects/create [GET]
+        try {
+            let skills = await Skill.findAll()
+            res.render('clients/create-project', { skills })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async handlerCreateProject(req, res) { //projects/create [POST]
+        try {
+            const { userSession } = req.session
+            const { title, description, budget, SkillId } = req.body
+
+            await Project.create({ title, description, budget, SkillId, ClientId: userSession.id })
+            res.redirect('/projects')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async renderCreateService(req, res) { //services/create [GET]
+        try {
+            let skills = await Skill.findAll()
+            res.render('hacklancers/create-service', { skills })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async handlerCreateService(req, res) { //services/create [POST]
+        try {
+            const { userSession } = req.session
+            const { title, description, price, terms, SkillId } = req.body
+
+            await Service.create({ title, description, price, terms, SkillId, HacklancerId: userSession.id })
+            res.redirect('/services')
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async renderBidProject(req, res) { //projects/:ProjectId/bids/bid [GET]
+        try {
+            const { ProjectId } = req.params
+
+            let project = await Project.findByPk(ProjectId)
+            res.render('hacklancers/bid-project', { project })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async handlerBidProject(req, res) { //projects/:ProjectId/bids/bid [POST]
+        try {
+            const { userSession } = req.session
+            const { ProjectId } = req.params
+
+            const { proposalText, bidAmount, terms } = req.body
+            await Bid.create({ ProjectId, HacklancerId: userSession.id, proposalText, bidAmount, terms })
+            res.redirect(`/projects/${ProjectId}/bids`)
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+
+    static async acceptBid(req, res) { //projects/:ProjectId/bids/:BidId/accept
+        try {
+            const { ProjectId, BidId } = req.params
+            await Bid.update(
+                { status: 'accepted' },
+                {
+                    where: {
+                        id: BidId,
+                    },
+                },
+            );
+            await Bid.update(
+                { status: 'rejected' },
+                {
+                    where: {
+                        id: {
+                            [Op.ne]: BidId
+                        },
+                        ProjectId: ProjectId
+                    },
+                },
+            );
+            await Project.update(
+                { status: 'in progress' },
+                {
+                    where: {
+                        id: ProjectId
+                    },
+                },
+            );
+            let bid = await Bid.findOne({
+                include: {
+                    model: User,
+                    as: 'Hacklancer'
+                },
+                where: {
+                    id: BidId,
+                }
+            })
+            let project = await Project.findByPk(ProjectId)
+            await Contract.create({ fee: bid.bidAmount, terms: `${project.description} - ${bid.terms} days`, ProjectId, HacklancerId: bid.HacklancerId })
+            res.render(`contract-created`, { bid })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async contracts(req, res) { //contracts
+        try {
+            const { userSession } = req.session
+
+            let client = await User.findOne({
+                include: {
+                    model: Project,
+                    include: {
+                        model: Contract,
+                        include: [
+                            {
+                                model: Project
+                            },
+                            {
+                                model: User
+                            }
+                        ]
+                    }
+                },
+                where: { id: userSession.id }
+            })
+            // Put on static method
+            let contracts = client.Projects.filter(project => project.Contract).map(project => project.Contract)
+            // res.send(contracts)
+            res.render('contracts', { contracts, formatToCurrency })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async completeContract(req, res) { //contracts/:ContractId/complete
+        try {
+            const { userSession } = req.session
+            const { ContractId } = req.params
+
+            let contract = await Contract.findByPk(ContractId)
+            await Contract.update(
+                { isCompleted: true },
+                {
+                    where: {
+                        id: ContractId
+                    },
+                },
+            );
+            await Project.update(
+                { status: 'completed' },
+                {
+                    where: {
+                        id: contract.ProjectId
+                    },
+                },
+            );
+            if (contract.isCompleted === false) {
+                await User.decrement('balance', {
+                    by: contract.fee,
+                    where: { id: userSession.id }
+                });
+                await User.increment('balance', {
+                    by: contract.fee,
+                    where: { id: contract.HacklancerId }
+                });
+            }
+
+            res.redirect('/contracts')
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -151,7 +315,7 @@ class Controller {
     }
     static async xxx(req, res) {
         try {
-            res.render('Hello World!')
+
         } catch (error) {
             console.log(error);
             res.send(error)

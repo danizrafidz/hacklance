@@ -22,6 +22,11 @@ module.exports = (sequelize, DataTypes) => {
     ProjectId: DataTypes.INTEGER,
     HacklancerId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (contract, options) => {
+        contract.isCompleted = false
+      },
+    },
     sequelize,
     modelName: 'Contract',
   });

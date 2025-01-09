@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('_partials/_head', {title: `List of ${project.title}'s Bids`}) %>
+    <%- include('_partials/_head', {title: project.title}) %>
 <body>
-    <%- include('_partials/_navbar', {heading: `List of ${project.title}'s Bids`}) %>
+    <%- include('_partials/_navbar', {heading: project.title}) %>
+    <!-- project -->
+     <!-- bids -->
 
     <% if (user.role === 'hacklancer') { %>  
         <button onclick="location.href='/projects/<%= project.id %>/bids/bid'">Bid Project</button>
@@ -16,7 +18,7 @@
             <th>Bid Amount</th>
             <th>Terms</th>
             <th>Status</th>
-            <% if (user.role === 'client') { %>  
+            <% if (user.id === project.ClientId && project.status === 'open') { %>  
                 <th>Action</th>
             <% } %>     
         </tr>
@@ -29,6 +31,7 @@
                 <td><%= formatToCurrency(bid.bidAmount) %></td>
                 <td><%= bid.terms %> days</td>
                 
+                
                 <% if (bid.status === 'pending') { %>
                     <td style="background-color: rgb(156, 156, 86);"><%= bid.status %></td>
                 <% } else if (bid.status === 'accepted') { %>
@@ -37,10 +40,9 @@
                     <td style="background-color: red;"><%= bid.status %></td>
                 <% } %>
 
-                <% if (user.role === 'client') { %>  
+                <% if (user.id === project.ClientId && project.status === 'open') { %>  
                     <td>
                         <button onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/accept'">Accept</button>
-                        <button onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/reject'">Reject</button>
                     </td>
                 <% } %>
             </tr>

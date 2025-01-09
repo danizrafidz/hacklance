@@ -3,45 +3,36 @@
         "id": 1,
         "ProjectId": 1,
         "HacklancerId": 2,
-        "proposalText": "I can create a sleek, professional logo for your startup in 3 days.",
-        "bidAmount": 250,
-        "terms": 3,
+        "proposalText": "I can deliver in 2 weeks.",
+        "bidAmount": 2900,
+        "terms": 14,
         "status": "pending"
     },
     {
         "id": 2,
-        "ProjectId": 2,
+        "ProjectId": 1,
         "HacklancerId": 3,
-        "proposalText": "I have 5 years of experience building e-commerce sites. Let's work together.",
-        "bidAmount": 2400,
-        "terms": 14,
+        "proposalText": "I offer a full redesign in 3 weeks.",
+        "bidAmount": 2800,
+        "terms": 21,
         "status": "pending"
     },
     {
         "id": 3,
-        "ProjectId": 3,
-        "HacklancerId": 5,
-        "proposalText": "I specialize in SEO and can deliver results in 2 weeks.",
-        "bidAmount": 750,
-        "terms": 14,
-        "status": "accepted"
-    },
-    {
-        "id": 4,
-        "ProjectId": 4,
-        "HacklancerId": 3,
-        "proposalText": "I can help grow your social media reach with a solid plan.",
-        "bidAmount": 950,
+        "ProjectId": 1,
+        "HacklancerId": 4,
+        "proposalText": "I can redesign and optimize in 1 week.",
+        "bidAmount": 3000,
         "terms": 7,
         "status": "pending"
     },
     {
-        "id": 5,
-        "ProjectId": 5,
-        "HacklancerId": 1,
-        "proposalText": "Custom plugin development is my expertise. I'll ensure top quality.",
-        "bidAmount": 1150,
+        "id": 4,
+        "ProjectId": 2,
+        "HacklancerId": 2,
+        "proposalText": "Experienced in food delivery apps.",
+        "bidAmount": 14000,
         "terms": 30,
-        "status": "rejected"
+        "status": "pending"
     }
 ]

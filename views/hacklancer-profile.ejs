@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: `${hacklancer.username}'s profile`}) %>
+<body>
+    <%- include('_partials/_navbar', {heading: `${hacklancer.username}'s profile`}) %>
+    <!-- hacklancer -->
+
+    <div style="text-align: left; padding:0 500px">
+        <p>Id: <%= hacklancer.id %></p>
+        <p>Username: <%= hacklancer.username %></p>
+        <p>Name: <%= hacklancer.name %></p>
+        <p>Email: <%= hacklancer.email %></p>
+        <p>Bio: <%= hacklancer.HacklancerProfile.bio %></p>
+        <p>Profile Picture: <%= hacklancer.HacklancerProfile.profilePicture %></p>
+        <p>Portfolio: <%= hacklancer.HacklancerProfile.portfolioURL %></p>
+        <p>Skill: <%= hacklancer.HacklancerProfile.SkillId %></p>
+        <p>Role: <%= hacklancer.role %></p>
+        <p>Balance: <%= hacklancer.balance %></p>
+        <p>Created Account: <%= hacklancer.createdAt %></p>
+    </div>
+
+    <h2>Reviews</h2>
+    <table>
+        <tr>
+            <th>Rating</th>
+            <th>Comment</th>
+            <th>Client</th>
+        </tr>
+        <% hacklancer.HacklancerProfile.Reviews.forEach(review => { %>
+        <tr>
+            <td><%= review.rating %></td>
+            <td><%= review.comment %></td>
+            <td><%= review.Client.username %></td>
+        </tr>
+        <% }) %>
+    </table>
+    
+    
+</body>
+</html>

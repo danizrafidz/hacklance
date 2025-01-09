@@ -1,42 +1,10 @@
 [
     {
         "id": 1,
-        "fee": 3000,
-        "terms": "Complete the redesign within 4 weeks.",
+        "fee": 2900,
+        "terms": "2 weeks project timeline",
         "isCompleted": false,
         "ProjectId": 1,
         "HacklancerId": 2
-    },
-    {
-        "id": 2,
-        "fee": 15000,
-        "terms": "Deliver the mobile app in 3 months.",
-        "isCompleted": true,
-        "ProjectId": 2,
-        "HacklancerId": 5
-    },
-    {
-        "id": 3,
-        "fee": 5000,
-        "terms": "Integrate the AI chatbot in 1 month.",
-        "isCompleted": true,
-        "ProjectId": 4,
-        "HacklancerId": 1
-    },
-    {
-        "id": 4,
-        "fee": 1200,
-        "terms": "Optimize website SEO within 2 weeks.",
-        "isCompleted": false,
-        "ProjectId": 5,
-        "HacklancerId": 2
-    },
-    {
-        "id": 5,
-        "fee": 2000,
-        "terms": "Develop and launch a social media campaign.",
-        "isCompleted": false,
-        "ProjectId": 3,
-        "HacklancerId": 3
     }
 ]

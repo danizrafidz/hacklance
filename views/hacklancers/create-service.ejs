@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: 'Create New Service'}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: 'Create New Service'}) %>
+    <!-- skills -->
+
+    <form action="/services/create" method="POST">
+        <label>Title</label><br>
+        <input type="text" name="title" placeholder="e.g. React Website"><br><br>
+
+        <label>Description</label><br>
+        <textarea name="description" placeholder="e.g. I Will create best React Website ever"></textarea><br><br>
+
+        <label>Price</label><br>
+        <input type="number" name="price" placeholder="e.g. 450"><br><br>
+
+        <label>Terms</label><br>
+        <input type="number" name="terms" placeholder="e.g. 7"><br><br>
+
+        <label>Skill Requirement</label><br>
+        <select name="SkillId">
+            <option selected disabled>--Select Skill--</option>
+            <% skills.forEach(skill => { %>
+                <option value="<%= skill.id %>"><%= skill.name %></option>
+            <% }) %>
+        </select><br><br>
+
+        <input type="submit" value="Create Service">
+    </form>
+</body>
+</html>

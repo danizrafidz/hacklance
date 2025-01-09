@@ -32,7 +32,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         notEmpty: {
           msg: 'Username required!'
-        }
+        },
+        isLowercase: {
+          args: true,
+          msg: 'Username must be lowercase!'
+        },
       },
     },
     name: {

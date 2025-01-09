@@ -1,47 +1,20 @@
 [
     {
         "id": 1,
-        "title": "Logo Design",
-        "description": "Custom logo design tailored to your brand identity.",
-        "price": 300.00,
-        "terms": 7,
+        "title": "Web Design Service",
+        "description": "Professional website design.",
+        "price": 2000.00,
+        "terms": 14,
         "HacklancerId": 2,
         "SkillId": 1
     },
     {
         "id": 2,
         "title": "Mobile App Development",
-        "description": "Develop high-quality apps for both Android and iOS platforms.",
-        "price": 10000.00,
-        "terms": 90,
-        "HacklancerId": 5,
-        "SkillId": 2
-    },
-    {
-        "id": 3,
-        "title": "Social Media Management",
-        "description": "Grow your brand with our expert social media management services.",
-        "price": 800.00,
+        "description": "High-quality app development.",
+        "price": 14000.00,
         "terms": 30,
         "HacklancerId": 3,
-        "SkillId": 3
-    },
-    {
-        "id": 4,
-        "title": "AI Chatbot Development",
-        "description": "Create AI chatbots to enhance customer support.",
-        "price": 4000.00,
-        "terms": 45,
-        "HacklancerId": 3,
-        "SkillId": 4
-    },
-    {
-        "id": 5,
-        "title": "SEO Optimization",
-        "description": "Improve your website's search engine ranking.",
-        "price": 1500.00,
-        "terms": 14,
-        "HacklancerId": 1,
-        "SkillId": 5
+        "SkillId": 2
     }
 ]

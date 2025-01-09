@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
     terms: DataTypes.INTEGER,
     status: DataTypes.ENUM('pending', 'accepted', 'rejected')
   }, {
+    hooks: {
+      beforeCreate: (bid, options) => {  
+        bid.status = 'pending'
+      },
+    },
     sequelize,
     modelName: 'Bid',
   });

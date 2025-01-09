@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: 'Hacklancer Register'}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: 'Hacklancer Register'}) %>
+
+    <% if (errors) { %>
+        <% errors.split(',').forEach(err => { %>
+            <p style="color: red;">*<%= err %></p>
+        <% }) %>
+    <% } %> 
+
+    <form action="/register?role=hacklancer" method="POST">
+        <label>Username</label><br>
+        <input type="text" name="username" placeholder="e.g: johndoe"><br><br>
+
+        <label>Name</label><br>
+        <input type="text" name="name" placeholder="e.g: John Doe"><br><br>
+
+        <label>Email</label><br>
+        <input type="text" name="email" placeholder="e.g: john.doe@mail.com"><br><br>
+        
+        <label>Password</label><br>
+        <input type="password" name="password" placeholder="e.g: 12345"><br><br>
+
+        <label>Bio</label><br>
+        <textarea name="bio" placeholder="e.g. I'm a smart guy that has mastered React JS"></textarea><br><br>
+
+        <label>Profile Picture</label><br>
+        <input type="text" name="profilePicture" placeholder="e.g: profile1.jpg"><br><br>
+
+        <label>Portfolio URL</label><br>
+        <input type="text" name="portfolioURL" placeholder="e.g: https://portfolio1.com"><br><br>
+
+        <label>Skill</label><br>
+        <select name="SkillId">
+            <option selected disabled>--Select Skill--</option>
+            <% skills.forEach(skill => { %>
+                <option value="<%= skill.id %>"><%= skill.name %></option>
+            <% }) %>
+        </select><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

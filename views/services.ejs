@@ -5,7 +5,7 @@
     <%- include('_partials/_navbar', {heading: 'List of Services', user}) %>
 
     <% if (user.role === 'hacklancer') { %>  
-        <button onclick="location.href='/services/new'">Create New Service</button>
+        <button onclick="location.href='/services/create'">Create New Service</button>
     <% } %>  
 
     <table>
@@ -14,6 +14,7 @@
             <th>Title</th>
             <th>Description</th>
             <th>Price</th>
+            <th>Terms</th>
             <th>Hacklancer</th>
             <th>Skill</th>
         </tr>
@@ -24,7 +25,12 @@
                 <td><%= service.title %></td>
                 <td><%= service.description %></td>
                 <td><%= formatToCurrency(service.price) %></td>
-                <td><%= service.User.username %></td>
+                <td><%= service.termsDay %></td>
+                <td>
+                    <a href="/hacklancer/profile/<%= service.Hacklancer.id %>">
+                        <%= service.Hacklancer.username %>
+                    </a>
+                </td>
                 <td><%= service.Skill.name %></td>
             </tr>
         <% }) %>

@@ -1,11 +1,11 @@
 [
     {
         "id": 1,
-        "name": "Web Design"
+        "name": "Graphics & Design"
     },
     {
         "id": 2,
-        "name": "Mobile Development"
+        "name": "Programming & Tech"
     },
     {
         "id": 3,
@@ -13,10 +13,38 @@
     },
     {
         "id": 4,
-        "name": "AI & Machine Learning"
+        "name": "Video & Animation"
     },
     {
         "id": 5,
-        "name": "SEO"
+        "name": "Writing & Translation"
+    },
+    {
+        "id": 6,
+        "name": "Music & Audio"
+    },
+    {
+        "id": 7,
+        "name": "Business"
+    },
+    {
+        "id": 8,
+        "name": "Finance"
+    },
+    {
+        "id": 9,
+        "name": "AI Services"
+    },
+    {
+        "id": 10,
+        "name": "Personal Growth"
+    },
+    {
+        "id": 11,
+        "name": "Consulting"
+    },
+    {
+        "id": 12,
+        "name": "Photography"
     }
 ]

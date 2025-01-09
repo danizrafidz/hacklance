@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: 'Client Register'}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: 'Client Register'}) %>
+
+    <% if (errors) { %>
+        <% errors.split(',').forEach(err => { %>
+            <p style="color: red;">*<%= err %></p>
+        <% }) %>
+    <% } %> 
+
+    <form action="/register?role=client" method="POST">
+        <label>Username</label><br>
+        <input type="text" name="username" placeholder="e.g: johndoe"><br><br>
+
+        <label>Name</label><br>
+        <input type="text" name="name" placeholder="e.g: John Doe"><br><br> 
+
+        <label>Email</label><br>
+        <input type="text" name="email" placeholder="e.g: john.doe@mail.com"><br><br>
+        
+        <label>Password</label><br>
+        <input type="password" name="password" placeholder="e.g: 12345"><br><br>
+
+        <input type="submit" value="Register">
+    </form>
+</body>
+</html>

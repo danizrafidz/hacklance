@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: `Bid ${project.title}'s Project`}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: `Bid ${project.title}'s Project`}) %>
+    <!-- project -->
+
+    <form action="/projects/<%= project.id %>/bids/bid" method="POST">
+        <label>Proposal Text</label><br>
+        <textarea name="proposalText" placeholder="e.g. Exprerienced in Express JS for more than 1 year, I guarantee project finished under 5 days."></textarea><br><br>
+
+        <label>Bid Amount</label><br>
+        <input type="number" name="bidAmount" placeholder="e.g. 200"><br><br>
+
+        <label>Terms</label><br>
+        <input type="number" name="terms" placeholder="e.g. 20"><br><br>
+
+        <input type="submit" value="Bid Project">
+    </form>
+</body>
+</html>

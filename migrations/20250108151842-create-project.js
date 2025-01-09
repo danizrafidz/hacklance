@@ -15,6 +15,9 @@ module.exports = {
       description: {
         type: Sequelize.TEXT
       },
+      imageURL: {
+        type: Sequelize.STRING
+      },
       budget: {
         type: Sequelize.DECIMAL
       },
