@@ -5,9 +5,9 @@ Silakan tanyakan kepada buddy instruktur bila kamu belum mendapat tema challenge
 
 ## Requirement Level Database
 1. Schema Table (ERD)
-2. Terdapat entitas/table **wajlb** yaitu Users dengan atibute yang harus ada:
+2. Terdapat entitas/table **wajib** yaitu Users dengan atibute yang harus ada:
     a. email
-    b. paSSword
+    b. password
     c. role
 3. Memliki 3 jenis asosiasi yandg Derbeda:
     a. One to One

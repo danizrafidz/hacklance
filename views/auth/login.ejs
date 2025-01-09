@@ -1,23 +1,68 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include('../_partials/_head', {title: 'Hacklance Login User'}) %>
-<body>
-    <%- include('../_partials/_navbar', {heading: 'Hacklance Login User'}) %>
+<%- include('../_partials/_head', {title: 'Hacklance Login User' }) %>
 
-    <% if (errors) { %>
-        <p style="color: red;">*<%= errors %></p>
-    <% } else if (success) { %> 
-        <p style="color: red;"><%= success %></p>
-    <% } %>
+    <body>
+        <%#- include('../_partials/_navbar', {heading: 'Hacklance Login User' }) %>
+            <div class="hero bg-base-200 min-h-screen">
 
-    <form action="/login" method="POST">
-        <label>Username</label><br>
-        <input type="text" name="username" placeholder="username..."><br><br>
-        
-        <label>Password</label><br>
-        <input type="password" name="password" placeholder="password..."><br><br>
+                <div class="hero-content flex-col lg:flex-row">
+                   
+                    <div class=" text-center lg:text-left mr-20">
+                        <h1 class="text-5xl font-bold">Hackerlance</h1>
+                        <p class="py-6">
+                            Providing the best services everywhere, everytime.
+                        </p>
+                    </div>
 
-        <input type="submit" value="Login">
-    </form>
-</body>
+                    <div class="card bg-base-100 ml-20 w-full max-w-sm shrink-0 shadow-2xl">
+
+                        <div class="card-body">
+                            
+                            <div style="color: red;">
+                                <% if (errors) { %>
+                                    <p>*<%= errors %>
+                                    </p>
+                                    <% } else if (success) { %>
+                                        <p>
+                                            <%= success %>
+                                        </p>
+                                        <% } %>
+                            </div>
+
+                            <fieldset class="fieldset">
+                                <form action="/login" method="POST">
+                                    <div>
+                                        <label class="fieldset-label text-base">Username</label>
+
+                                        <input type="text" class="input" name="username"
+                                            placeholder="username..."><br><br>
+
+                                        <label class="fieldset-label text-base">Password</label>
+
+                                        <input type="password" class="input" name="password"
+                                            placeholder="password..."><br><br>
+                                    </div>
+
+                                    <div>
+                                        <a class="link link-hover text-sm">Forgot password?</a><br><br>
+                                    </div>
+
+                                    <div class="flex justify-center ">
+                                        <button class="btn btn-neutral w-full rounded-box" type="submit" value="Login">Login</button>
+                                    </div>
+
+
+                                </form>
+                            </fieldset>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+    </body>
+
 </html>
