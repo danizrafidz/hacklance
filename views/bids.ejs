@@ -1,50 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
-    <%- include('_partials/_head', {title: `List of ${project.title}'s Bids`}) %>
-<body>
-    <%- include('_partials/_navbar', {heading: `List of ${project.title}'s Bids`}) %>
+<html lang="en" data-theme="business">
+<%- include('_partials/_head', {title: `List of ${project.title}'s Bids`}) %>
 
-    <% if (user.role === 'hacklancer') { %>  
-        <button onclick="location.href='/projects/<%= project.id %>/bids/bid'">Bid Project</button>
-    <% } %>  
+    <body>
+        <%- include('_partials/_navbar', {heading: `List of ${project.title}'s Bids`}) %>
 
-    <table>
-        <tr>
-            <th>No</th>
-            <th>Bidder</th>
-            <th>Proposal Text</th>
-            <th>Bid Amount</th>
-            <th>Terms</th>
-            <th>Status</th>
-            <% if (user.role === 'client') { %>  
-                <th>Action</th>
-            <% } %>     
-        </tr>
-
-        <% bids.forEach((bid, i) => { %>
-            <tr>
-                <td><%= i + 1 %></td>
-                <td><%= bid.Hacklancer.username %></td>
-                <td><%= bid.proposalText %></td>
-                <td><%= formatToCurrency(bid.bidAmount) %></td>
-                <td><%= bid.terms %> days</td>
-                
-                <% if (bid.status === 'pending') { %>
-                    <td style="background-color: rgb(156, 156, 86);"><%= bid.status %></td>
-                <% } else if (bid.status === 'accepted') { %>
-                    <td style="background-color: green;"><%= bid.status %></td>
-                <% } else if (bid.status === 'rejected') { %>
-                    <td style="background-color: red;"><%= bid.status %></td>
+            <% if (user.role==='hacklancer' ) { %>
+                <div>
+                    <button onclick="location.href='/projects/<%= project.id %>/bids/bid'">Bid Project</button>
+                </div>
                 <% } %>
 
-                <% if (user.role === 'client') { %>  
-                    <td>
-                        <button onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/accept'">Accept</button>
-                        <button onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/reject'">Reject</button>
-                    </td>
-                <% } %>
-            </tr>
-        <% }) %>
-    </table>
-</body>
+                    <div>
+                        <table>
+                            <tr>
+                                <th>No</th>
+                                <th>Bidder</th>
+                                <th>Proposal Text</th>
+                                <th>Bid Amount</th>
+                                <th>Terms</th>
+                                <th>Status</th>
+                                <% if (user.role==='client' ) { %>
+                                    <th>Action</th>
+                                    <% } %>
+                            </tr>
+
+                            <% bids.forEach((bid, i)=> { %>
+                                <tr>
+                                    <td>
+                                        <%= i + 1 %>
+                                    </td>
+                                    <td>
+                                        <%= bid.Hacklancer.username %>
+                                    </td>
+                                    <td>
+                                        <%= bid.proposalText %>
+                                    </td>
+                                    <td>
+                                        <%= formatToCurrency(bid.bidAmount) %>
+                                    </td>
+                                    <td>
+                                        <%= bid.terms %> days
+                                    </td>
+
+                                    <% if (bid.status==='pending' ) { %>
+                                        <td style="background-color: rgb(156, 156, 86);">
+                                            <%= bid.status %>
+                                        </td>
+                                        <% } else if (bid.status==='accepted' ) { %>
+                                            <td style="background-color: green;">
+                                                <%= bid.status %>
+                                            </td>
+                                            <% } else if (bid.status==='rejected' ) { %>
+                                                <td style="background-color: red;">
+                                                    <%= bid.status %>
+                                                </td>
+                                                <% } %>
+
+                                                    <% if (user.role==='client' ) { %>
+                                                        <td>
+                                                            <button
+                                                                onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/accept'">Accept</button>
+                                                            <button
+                                                                onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/reject'">Reject</button>
+                                                        </td>
+                                                        <% } %>
+                                </tr>
+                                <% }) %>
+                        </table>
+                    </div>
+    </body>
+
 </html>

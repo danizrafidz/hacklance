@@ -13,7 +13,7 @@ module.exports = {
      *   isBetaMember: false
      * }], {});
     */
-    let hacklancerProfiles = JSON.parse(await fs.readFile('./data/hacklancerprofiles.json', 'utf8')).map(profile => { //! tadi ada typo './data/hacklancerProfiles.json' yang mana harusnya './data/hacklancerprofiles.json'
+    let hacklancerProfiles = JSON.parse(await fs.readFile('./data/hacklancerprofiles.json', 'utf8')).map(profile => {
       delete profile.id
       profile.createdAt = new Date()
       profile.updatedAt = new Date()

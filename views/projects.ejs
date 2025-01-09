@@ -1,49 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
-    <%- include('_partials/_head', {title: 'List of Projects'}) %>
-<body>
-    <%- include('_partials/_navbar', {heading: 'List of Projects'}) %>
+<html lang="en" data-theme="business">
+<%- include('_partials/_head', {title: 'List of Projects' }) %>
 
-    <% if (user.role === 'client') { %>  
-        <button onclick="location.href='/projects/new'">Post New Project</button>
-    <% } %>  
+    <body>
+        <%- include('_partials/_navbar', {heading: 'List of Projects' }) %>
 
-    <table>
-        <tr>
-            <th>No</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Budget</th>
-            <th>Skill Requirements</th>
-            <th>Status</th>
-            <th>Posted By</th>
-            <th>Action</th>
-        </tr>
-
-        <% projects.forEach((project, i) => { %>
-            <tr>
-                <td><%= i + 1 %></td>
-                <td><%= project.title %></td>
-                <td><%= project.description %></td>
-                <td><%= formatToCurrency(project.budget) %></td>
-                <td><%= project.Skill.name %></td>
-                
-                <% if (project.status === 'open') { %>
-                    <td style="background-color: green;"><%= project.status %></td>
-                <% } else if (project.status === 'in progress') { %>
-                    <td style="background-color: rgb(203, 203, 155);"><%= project.status %></td>
-                <% } else if (project.status === 'completed') { %>
-                    <td style="background-color: rgb(0, 123, 255);"><%= project.status %></td>
-                <% } else if (project.status === 'cancelled') { %>
-                    <td style="background-color: red;"><%= project.status %></td>
+            <% if (user.role==='client' ) { %>
+                <div class="flex justify-center p-4">
+                    <button type="button" onclick="location.href='/projects/new'" class="btn btn-primary">Post New
+                        Project</button>
+                </div>
                 <% } %>
 
-                <td><%= project.User.username %></td>
-                <td>
-                    <button onclick="location.href='/projects/<%= project.id %>/bids'">See Bids</button>
-                </td>
-            </tr>
-        <% }) %>
-    </table>
-</body>
+                    <div class="container mx-auto p-4">
+                        <div class="flex flex-wrap -mx-2">
+                            <% projects.forEach((project, i)=> { %>
+                                <div
+                                    class="relative flex flex-col my-6 bg-white shadow-sm border border-slate-200 rounded-lg w-1/3 mx-2">
+                                    <div class="p-4">
+                                        <h5 class="mb-2 text-slate-800 text-xl font-semibold">
+                                            <%= project.title %>
+                                        </h5>
+                                        <p class="text-slate-600 leading-normal font-light">
+                                            <%= project.description %>
+                                        </p>
+                                    </div>
+                                    <div class="mx-3 border-t border-slate-200 pb-3 pt-2 px-1">
+                                        <span class="text-sm text-slate-600 font-medium">
+                                            Budget: <%= formatToCurrency(project.budget) %>
+                                        </span><br>
+                                        <span class="text-sm text-slate-600 font-medium">
+                                            Skill Requirements: <%= project.Skill.name %>
+                                        </span><br>
+                                        <span class="text-sm text-slate-600 font-medium">
+                                            Status:
+                                            <% if (project.status==='open' ) { %>
+                                                <span class="text-green-600">
+                                                    <%= project.status %>
+                                                </span>
+                                                <% } else if (project.status==='in progress' ) { %>
+                                                    <span class="text-yellow-600">
+                                                        <%= project.status %>
+                                                    </span>
+                                                    <% } else if (project.status==='completed' ) { %>
+                                                        <span class="text-blue-600">
+                                                            <%= project.status %>
+                                                        </span>
+                                                        <% } else if (project.status==='cancelled' ) { %>
+                                                            <span class="text-red-600">
+                                                                <%= project.status %>
+                                                            </span>
+                                                            <% } %>
+                                        </span><br>
+                                        <span class="text-sm text-slate-600 font-medium">
+                                            Posted By: <%= project.User.username %>
+                                        </span>
+                                        <div class="pt-2">
+                                            <button type="button"
+                                                onclick="location.href='/projects/<%= project.id %>/bids'"
+                                                class="btn btn-secondary">See Bids</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <% }) %>
+                        </div>
+                    </div>
+
+    </body>
+
 </html>

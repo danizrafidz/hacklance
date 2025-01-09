@@ -1,71 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="business">
 <%- include('_partials/_head', {title: 'List of Services' }) %>
 
     <body>
         <%- include('_partials/_navbar', {heading: 'List of Services' , user}) %>
 
             <!-- copilot -->
-            <div class="flex justify-center mt-4">
-                <% if (user.role==='hacklancer' ) { %>
-                    <button onclick="location.href='/services/new'"
+            <% if (user.role==='hacklancer' ) { %>
+                <div class="flex justify-center mt-4">
+                    <button type="button" onclick="location.href='/services/new'"
                         class="bg-blue-500 text-white font-bold py-2 px-4 rounded">Create New Service</button>
-                    <% } %>
-            </div>
+                </div>
+                <% } %>
 
-            <div class="container mx-auto mt-8">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="container mx-auto mt-8">
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                    <% services.forEach((service, i)=> { %>
-                        <div class="card bg-base-100 w-auto shadow-sm">
+                            <% services.forEach((service, i)=> { %>
+                                <div class="card bg-base-100 w-auto shadow-sm rounded-3xl" data-theme="cyberpunk">
 
-                            <figure class="relative">
-                                <img src='https://cdn.pixabay.com/photo/2022/06/16/11/14/web-development-7265717_1280.png'
-                                    alt="<%= service.title %>" class="w-full h-48 object-cover" />
-                                <img src="https://i.pravatar.cc/48?img=<%= i + 34 %>" alt="<%= service.User.username %>"
-                                    class="absolute top-4 left-4 w-12 h-12 rounded-full border-2 border-white shadow" />
-                            </figure>
+                                    <figure class="relative">
+                                        <img src='https://cdn.pixabay.com/photo/2022/06/16/11/14/web-development-7265717_1280.png'
+                                            alt="<%= service.title %>" class="w-full h-48 object-cover" />
+                                        <img src="https://i.pravatar.cc/48?img=<%= i + 34 %>"
+                                            alt="<%= service.User.username %>"
+                                            class="absolute top-4 left-4 w-12 h-12 rounded-full border-2 border-white shadow" />
+                                    </figure>
 
-                            <div class="card-body">
-                                <div class="card-title">
-                                        <h2><%= service.title %></h2>
-                                        <span class="badge badge-sm text-xs badge-primary">ON DEMAND</span>
+                                    <div class="card-body">
+                                        <div class="card-title">
+                                            <h2>
+                                                <%= service.title %>
+                                            </h2>
+                                            <span class="badge badge-sm text-xs badge-primary">ON DEMAND</span>
+                                        </div>
+
+                                        <div>
+                                            <p>
+                                                <%= service.description %>
+                                            </p>
+                                            <p class="text-gray-900 font-semibold"><strong>Price:</strong>
+                                                <%= formatToCurrency(service.price) %>
+                                            </p>
+                                            <p class="text-gray-900 font-semibold"><strong>Hacklancer:</strong>
+                                                <%= service.User.username %>
+                                            </p>
+                                            <p class="text-gray-900 font-semibold"><strong>Skill:</strong>
+                                                <%= service.Skill.name %>
+                                            </p>
+                                        </div>
+                                        <div class="card-actions justify-end">
+                                            <button class="badge badge-outline">Details</button>
+                                        </div>
+                                    </div>
+
+                                    <!-- Action base sized link button -->
+                                    <div class="flex justify-end gap-2 p-2 pt-0">
+                                        <button type="button"
+                                            class="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide transition duration-300 rounded justify-self-center whitespace-nowrap text-emerald-500 hover:bg-emerald-100 hover:text-emerald-600 focus:bg-emerald-200 focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-emerald-300 disabled:shadow-none disabled:hover:bg-transparent">
+                                            <span>Read more</span>
+                                        </button>
+                                    </div>
+
                                 </div>
 
-                                <div>
-                                    <p>
-                                        <%= service.description %>
-                                    </p>
-                                    <p class="text-gray-900 font-semibold"><strong>Price:</strong>
-                                        <%= formatToCurrency(service.price) %>
-                                    </p>
-                                    <p class="text-gray-900 font-semibold"><strong>Hacklancer:</strong>
-                                        <%= service.User.username %>
-                                    </p>
-                                    <p class="text-gray-900 font-semibold"><strong>Skill:</strong>
-                                        <%= service.Skill.name %>
-                                    </p>
-                                </div>
-                                <div class="card-actions justify-end">
-                                    <button class="badge badge-outline">Details</button>
-                                </div>
-                            </div>
-
-                            <!-- Action base sized link button -->
-                            <div class="flex justify-end gap-2 p-2 pt-0">
-                                <button type="button"
-                                    class="inline-flex items-center justify-center h-10 gap-2 px-5 text-sm font-medium tracking-wide transition duration-300 rounded justify-self-center whitespace-nowrap text-emerald-500 hover:bg-emerald-100 hover:text-emerald-600 focus:bg-emerald-200 focus:text-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:text-emerald-300 disabled:shadow-none disabled:hover:bg-transparent">
-                                    <span>Read more</span>
-                                </button>
-                            </div>
+                                <% }) %>
 
                         </div>
-
-                        <% }) %>
-
-                </div>
-            </div>
-            <!-- end of from copilot -->
+                    </div>
+                    <!-- end of from copilot -->
     </body>
 
 </html>
