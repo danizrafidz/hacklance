@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "name": "Web Design"
+    },
+    {
+        "id": 2,
+        "name": "Mobile Development"
+    },
+    {
+        "id": 3,
+        "name": "Digital Marketing"
+    },
+    {
+        "id": 4,
+        "name": "AI & Machine Learning"
+    },
+    {
+        "id": 5,
+        "name": "SEO"
+    }
+]

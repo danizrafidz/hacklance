@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: 'List of Services'}) %>
+<body>
+    <%- include('_partials/_navbar', {heading: 'List of Services', user}) %>
+
+    <% if (user.role === 'hacklancer') { %>  
+        <button onclick="location.href='/services/new'">Create New Service</button>
+    <% } %>  
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Hacklancer</th>
+            <th>Skill</th>
+        </tr>
+
+        <% services.forEach((service, i) => { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= service.title %></td>
+                <td><%= service.description %></td>
+                <td><%= formatToCurrency(service.price) %></td>
+                <td><%= service.User.username %></td>
+                <td><%= service.Skill.name %></td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

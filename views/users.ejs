@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: 'List of Users'}) %>
+<body>
+    <%- include('_partials/_navbar', {heading: 'List of Users'}) %>
+    <!-- users -->
+
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Action</th>
+        </tr>
+        <% users.forEach(user => { %>
+            <tr>
+                <td><%= user.id %></td>
+                <td><%= user.username %></td>
+                <td><%= user.email %></td>
+                <td><%= user.role %></td>
+                <td>
+                    <button onclick="location.href='/users/<%= user.id %>/set-role'">Set Role</button>
+                    <button onclick="location.href='/users/<%= user.id %>/profile'">View Profile</button>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>

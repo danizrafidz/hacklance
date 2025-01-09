@@ -1,0 +1,47 @@
+[
+    {
+        "id": 1,
+        "title": "Website Redesign",
+        "description": "Redesign our company website with modern UI/UX principles.",
+        "budget": 3000.00,
+        "status": "open",
+        "SkillId": 1,
+        "ClientId": 1
+    },
+    {
+        "id": 2,
+        "title": "Mobile App Development",
+        "description": "Develop a cross-platform mobile app for our e-commerce business.",
+        "budget": 15000.00,
+        "status": "in progress",
+        "SkillId": 2,
+        "ClientId": 4
+    },
+    {
+        "id": 3,
+        "title": "Social Media Marketing Strategy",
+        "description": "Create and execute a social media marketing strategy for our startup.",
+        "budget": 2000.00,
+        "status": "open",
+        "SkillId": 3,
+        "ClientId": 2
+    },
+    {
+        "id": 4,
+        "title": "AI Chatbot Integration",
+        "description": "Integrate an AI chatbot for customer support on our website.",
+        "budget": 5000.00,
+        "status": "completed",
+        "SkillId": 4,
+        "ClientId": 3
+    },
+    {
+        "id": 5,
+        "title": "SEO Optimization",
+        "description": "Improve our website's SEO to increase organic traffic.",
+        "budget": 1200.00,
+        "status": "open",
+        "SkillId": 5,
+        "ClientId": 1
+    }
+]

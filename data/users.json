@@ -1,0 +1,47 @@
+[
+  {
+      "id": 1,
+      "username": "johndoe",
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "password": "hashedPassword1",
+      "role": "client",
+      "balance": 100.50
+  },
+  {
+      "id": 2,
+      "username": "janesmith",
+      "name": "Jane Smith",
+      "email": "janesmith@example.com",
+      "password": "hashedPassword2",
+      "role": "hacklancer",
+      "balance": 2500.75
+  },
+  {
+      "id": 3,
+      "username": "alicejohnson",
+      "name": "Alice Johnson",
+      "email": "alicejohnson@example.com",
+      "password": "hashedPassword3",
+      "role": "admin",
+      "balance": 0.00
+  },
+  {
+      "id": 4,
+      "username": "bobbrown",
+      "name": "Bob Brown",
+      "email": "bobbrown@example.com",
+      "password": "hashedPassword4",
+      "role": "client",
+      "balance": 500.00
+  },
+  {
+      "id": 5,
+      "username": "eveadams",
+      "name": "Eve Adams",
+      "email": "eveadams@example.com",
+      "password": "hashedPassword5",
+      "role": "hacklancer",
+      "balance": 3200.00
+  }
+]

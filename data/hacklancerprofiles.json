@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "bio": "Experienced web designer with a focus on user-centered design.",
+        "profilePicture": "profile1.jpg",
+        "portfolioURL": "https://portfolio1.com",
+        "HacklancerId": 2,
+        "SkillId": 1
+    },
+    {
+        "id": 2,
+        "bio": "Mobile app developer specializing in Flutter and React Native.",
+        "profilePicture": "profile2.jpg",
+        "portfolioURL": "https://portfolio2.com",
+        "HacklancerId": 5,
+        "SkillId": 2
+    },
+    {
+        "id": 3,
+        "bio": "Digital marketer with expertise in social media campaigns.",
+        "profilePicture": "profile3.jpg",
+        "portfolioURL": "https://portfolio3.com",
+        "HacklancerId": 4,
+        "SkillId": 3
+    },
+    {
+        "id": 4,
+        "bio": "AI engineer with experience in chatbot development.",
+        "profilePicture": "profile4.jpg",
+        "portfolioURL": "https://portfolio4.com",
+        "HacklancerId": 1,
+        "SkillId": 4
+    },
+    {
+        "id": 5,
+        "bio": "SEO specialist with a proven track record in driving organic traffic.",
+        "profilePicture": "profile5.jpg",
+        "portfolioURL": "https://portfolio5.com",
+        "HacklancerId": 3,
+        "SkillId": 5
+    }
+]

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: 'Hacklance'}) %>
+<body>
+    <!-- user -->
+
+    <h1>Hacklance</h1>
+    <h2>Freelance services marketplace</h2>
+    <% if (user.role === 'client') { %>
+        <h3 style="color: rgb(117, 171, 157);">Welcome back <%= user.name %>, <%= user.role %> (ID: <%= user.id %>)</h3>
+    <% } else if (user.role === 'hacklancer') { %>
+        <h3 style="color: rgb(185, 140, 76);">Welcome back <%= user.name %>, <%= user.role %> (ID: <%= user.id %>)</h3>
+    <% } %>
+
+    <div class="home-menu">
+        <button onclick="location.href='/'">Home</button><br>
+        <button onclick="location.href='/users'">Users</button><br>
+        <button onclick="location.href='/projects'">Projects</button><br>
+        <button onclick="location.href='/services'">Services</button><br>
+        <button onclick="location.href='/login'">Login</button><br>
+        <button onclick="location.href='/register'">Register</button><br>
+    </div>
+</body>
+</html>

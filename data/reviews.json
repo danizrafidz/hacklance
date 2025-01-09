@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "rating": 5,
+        "comment": "Excellent work! Delivered ahead of schedule.",
+        "ProfileId": 1,
+        "ClientId": 1
+    },
+    {
+        "id": 2,
+        "rating": 4,
+        "comment": "Great communication and quality work.",
+        "ProfileId": 2,
+        "ClientId": 4
+    },
+    {
+        "id": 3,
+        "rating": 5,
+        "comment": "Highly professional and reliable.",
+        "ProfileId": 3,
+        "ClientId": 3
+    },
+    {
+        "id": 4,
+        "rating": 3,
+        "comment": "Good effort, but the project took longer than expected.",
+        "ProfileId": 4,
+        "ClientId": 2
+    },
+    {
+        "id": 5,
+        "rating": 4,
+        "comment": "Delivered satisfactory results. Would hire again.",
+        "ProfileId": 5,
+        "ClientId": 1
+    }
+]

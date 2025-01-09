@@ -1,0 +1,51 @@
+[
+    {
+        "id": 1,
+        "ContractId": 2,
+        "amount": 800,
+        "paymentMethod": "Credit Card",
+        "status": "completed"
+    },
+    {
+        "id": 2,
+        "ContractId": 1,
+        "amount": 750,
+        "paymentMethod": "PayPal",
+        "status": "pending"
+    },
+    {
+        "id": 3,
+        "ContractId": 5,
+        "amount": 4800,
+        "paymentMethod": "Bank Transfer",
+        "status": "completed"
+    },
+    {
+        "id": 4,
+        "ContractId": 4,
+        "amount": 250,
+        "paymentMethod": "Credit Card",
+        "status": "failed"
+    },
+    {
+        "id": 5,
+        "ContractId": 3,
+        "amount": 1150,
+        "paymentMethod": "PayPal",
+        "status": "failed"
+    },
+    {
+        "id": 6,
+        "ContractId": 1,
+        "amount": 750,
+        "paymentMethod": "Credit Card",
+        "status": "completed"
+    },
+    {
+        "id": 7,
+        "ContractId": 2,
+        "amount": 800,
+        "paymentMethod": "PayPal",
+        "status": "completed"
+    }
+]

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: 'Hacklance Login User'}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: 'Hacklance Login User'}) %>
+
+    <% if (errors) { %>
+        <p style="color: red;">*<%= errors %></p>
+    <% } else if (success) { %> 
+        <p style="color: red;"><%= success %></p>
+    <% } %>
+
+    <form action="/login" method="POST">
+        <label>Username</label><br>
+        <input type="text" name="username" placeholder="username..."><br><br>
+        
+        <label>Password</label><br>
+        <input type="password" name="password" placeholder="password..."><br><br>
+
+        <input type="submit" value="Login">
+    </form>
+</body>
+</html>

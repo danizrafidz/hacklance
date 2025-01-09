@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('_partials/_head', {title: 'List of Projects'}) %>
+<body>
+    <%- include('_partials/_navbar', {heading: 'List of Projects'}) %>
+
+    <% if (user.role === 'client') { %>  
+        <button onclick="location.href='/projects/new'">Post New Project</button>
+    <% } %>  
+
+    <table>
+        <tr>
+            <th>No</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Budget</th>
+            <th>Skill Requirements</th>
+            <th>Status</th>
+            <th>Posted By</th>
+            <th>Action</th>
+        </tr>
+
+        <% projects.forEach((project, i) => { %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= project.title %></td>
+                <td><%= project.description %></td>
+                <td><%= formatToCurrency(project.budget) %></td>
+                <td><%= project.Skill.name %></td>
+                
+                <% if (project.status === 'open') { %>
+                    <td style="background-color: green;"><%= project.status %></td>
+                <% } else if (project.status === 'in progress') { %>
+                    <td style="background-color: rgb(203, 203, 155);"><%= project.status %></td>
+                <% } else if (project.status === 'completed') { %>
+                    <td style="background-color: rgb(0, 123, 255);"><%= project.status %></td>
+                <% } else if (project.status === 'cancelled') { %>
+                    <td style="background-color: red;"><%= project.status %></td>
+                <% } %>
+
+                <td><%= project.User.username %></td>
+                <td>
+                    <button onclick="location.href='/projects/<%= project.id %>/bids'">See Bids</button>
+                </td>
+            </tr>
+        <% }) %>
+    </table>
+</body>
+</html>
