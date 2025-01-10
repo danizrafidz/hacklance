@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="corporate">
+
 <%- include('_partials/_head', {title: 'Hacklance' }) %>
 
     <body>
         <!-- user -->
-        <%- include('./_partials/_navbar', {heading: null}) %>
-
+        <%- include('./_partials/_navbar', {heading: 'Hacklance'}) %>
 
             <div class="hidden lg:flex lg:flex-1 lg:justify-end">
                 <a href="#" class="text-sm/6 font-semibold text-gray-900">Log in <span
@@ -95,19 +95,23 @@
                         </div>
 
                         <div class="mt-6 text-center">
-                            <button type="button" onclick="location.href='/'"
-                                class="btn btn-primary mb-2">Home</button><br>
-                            <button type="button" onclick="location.href='/users'"
-                                class="btn btn-primary mb-2">Users</button><br>
-                            <button type="button" onclick="location.href='/projects'"
-                                class="btn btn-primary mb-2">Projects</button><br>
-                            <button type="button" onclick="location.href='/services'"
-                                class="btn btn-primary mb-2">Services</button><br>
-                            <button type="button" onclick="location.href='/login'"
-                                class="btn btn-primary mb-2">Login</button><br>
-                            <button type="button" onclick="location.href='/register'"
-                                class="btn btn-primary mb-2">Register</button><br>
+                            <button type="button" onclick="location.href='/'" class="btn btn-primary mb-2">
+                                Home
+                            </button><br>
+
+                            <button type="button" onclick="location.href='/users'" class="btn btn-primary mb-2">
+                                Users
+                            </button><br>
+
+                            <button type="button" onclick="location.href='/projects'" class="btn btn-primary mb-2">
+                                Projects
+                            </button><br>
+
+                            <button type="button" onclick="location.href='/services'" class="btn btn-primary mb-2">
+                                    Services
+                            </button><br>
                         </div>
+
                     </div>
                 </div>
             </main>
