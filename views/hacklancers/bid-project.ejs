@@ -5,6 +5,12 @@
     <%- include('../_partials/_navbar', {heading: `Bid ${project.title}'s Project`}) %>
     <!-- project -->
 
+    <% if (errors) { %>
+        <% errors.split(',').forEach(err => { %>
+            <p style="color: red;">*<%= err %></p>
+        <% }) %>
+    <% } %> 
+
     <form action="/projects/<%= project.id %>/bids/bid" method="POST">
         <label>Proposal Text</label><br>
         <textarea name="proposalText" placeholder="e.g. Exprerienced in Express JS for more than 1 year, I guarantee project finished under 5 days."></textarea><br><br>

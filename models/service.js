@@ -20,12 +20,67 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Service.init({
-    title: DataTypes.STRING,
-    description: DataTypes.TEXT,
-    price: DataTypes.DECIMAL,
-    terms: DataTypes.INTEGER,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Title required',
+        },
+        notEmpty: {
+          msg: 'Title required!'
+        }
+      },
+    },
+    description: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Description required',
+        },
+        notEmpty: {
+          msg: 'Description required!'
+        }
+      },
+    },
+    price: {
+      type: DataTypes.DECIMAL,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Price required',
+        },
+        notEmpty: {
+          msg: 'Price required!'
+        }
+      },
+    },
+    terms: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Terms required',
+        },
+        notEmpty: {
+          msg: 'Terms required!'
+        }
+      },
+    },
     HacklancerId: DataTypes.INTEGER,
-    SkillId: DataTypes.INTEGER
+    SkillId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Skill required',
+        },
+        notEmpty: {
+          msg: 'Skill required!'
+        }
+      },
+    },
   }, {
     sequelize,
     modelName: 'Service',

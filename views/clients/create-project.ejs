@@ -5,6 +5,12 @@
     <%- include('../_partials/_navbar', {heading: 'Post New Project'}) %>
     <!-- skills -->
 
+    <% if (errors) { %>
+        <% errors.split(',').forEach(err => { %>
+            <p style="color: red;">*<%= err %></p>
+        <% }) %>
+    <% } %> 
+
     <form action="/projects/create" method="POST">
         <label>Title</label><br>
         <input type="text" name="title" placeholder="e.g. Bug Fixing"><br><br>
@@ -12,8 +18,11 @@
         <label>Description</label><br>
         <textarea name="description" placeholder="e.g. Please fix my bug on Express Js related to Session"></textarea><br><br>
 
+        <label>Image URL</label><br>
+        <input type="text" name="imageURL" placeholder="e.g. https://project-image.png"><br><br>
+
         <label>Budget</label><br>
-        <input type="number" name="budget" placeholder="e.g. 20"><br><br>
+        <input type="number" name="budget" placeholder="e.g. 100"><br><br>
 
         <label>Skill Requirement</label><br>
         <select name="SkillId">

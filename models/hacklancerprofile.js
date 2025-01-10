@@ -19,7 +19,6 @@ module.exports = (sequelize, DataTypes) => {
   HacklancerProfile.init({
     bio: {
       type: DataTypes.TEXT,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -32,7 +31,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     profilePicture: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -45,7 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     portfolioURL: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -59,7 +56,6 @@ module.exports = (sequelize, DataTypes) => {
     HacklancerId: DataTypes.INTEGER,
     SkillId: {
       type: DataTypes.INTEGER,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('../_partials/_head', {title: 'Review'}) %>
+<body>
+    <%- include('../_partials/_navbar', {heading: 'Review'}) %>
+
+    <h1>Your contract with <span style="color: rgb(132, 162, 196);"><%= contract.User.username %></span> has been completed!</h1>
+    <h2>Balance has been transfered <span style="color: rgb(196, 196, 132);"><%= formatToCurrency(contract.fee) %></span> to the Contractor</h2>
+    <h3>Please leave a review!</h3>
+    
+    <% if (errors) { %>
+        <% errors.split(',').forEach(err => { %>
+            <p style="color: red;">*<%= err %></p>
+        <% }) %>
+    <% } %> 
+
+    <form action="/review/<%= contract.HacklancerId %>" method="POST">
+        <label>Rating</label><br>
+        <input type="number" name="rating" placeholder="e.g. 5"><br><br>
+
+        <label>Comment</label><br>
+        <textarea name="comment" placeholder="e.g. He's quick guy and a type of person who put a lot of efforts"></textarea><br><br>
+
+        <input type="submit" value="Leave a Review">
+    </form>
+</body>
+</html>

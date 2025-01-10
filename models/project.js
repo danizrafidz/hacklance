@@ -1,4 +1,6 @@
 'use strict';
+const { Op, Sequelize } = require('sequelize')
+
 const {
   Model
 } = require('sequelize');
@@ -9,6 +11,25 @@ module.exports = (sequelize, DataTypes) => {
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
+    static async sortAndSearch(sort, search, User, Skill, Bid) {
+      if (!sort) sort = 'DESC'
+      if (!search) search = ''
+
+      let projects = await Project.findAll({
+        include: [User, Skill, Bid],
+        order: [
+          ['status', 'ASC'],
+          ['createdAt', sort]
+        ],
+        where: {
+          title: {
+            [Op.iLike]: `%${search}%`
+          }
+        }
+      })
+      return projects
+    }
+
     static associate(models) {
       // define association here
       Project.hasMany(models.Bid, { foreignKey: 'ProjectId' }); // Join table
@@ -20,7 +41,6 @@ module.exports = (sequelize, DataTypes) => {
   Project.init({
     title: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -33,7 +53,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.TEXT,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -46,7 +65,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     imageURL: {
       type: DataTypes.STRING,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -59,7 +77,6 @@ module.exports = (sequelize, DataTypes) => {
     },
     budget: {
       type: DataTypes.DECIMAL,
-      unique: true,
       allowNull: false,
       validate: {
         notNull: {
@@ -71,7 +88,18 @@ module.exports = (sequelize, DataTypes) => {
       },
     },
     status: DataTypes.ENUM('open', 'in progress', 'completed'),
-    SkillId: DataTypes.INTEGER,
+    SkillId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        notNull: {
+          msg: 'Description required',
+        },
+        notEmpty: {
+          msg: 'Description required!'
+        }
+      },
+    },
     ClientId: DataTypes.INTEGER
   }, {
     hooks: {

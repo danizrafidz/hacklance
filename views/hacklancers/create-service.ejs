@@ -5,6 +5,12 @@
     <%- include('../_partials/_navbar', {heading: 'Create New Service'}) %>
     <!-- skills -->
 
+    <% if (errors) { %>
+        <% errors.split(',').forEach(err => { %>
+            <p style="color: red;">*<%= err %></p>
+        <% }) %>
+    <% } %> 
+
     <form action="/services/create" method="POST">
         <label>Title</label><br>
         <input type="text" name="title" placeholder="e.g. React Website"><br><br>

@@ -14,15 +14,16 @@
         <tr>
             <th>No</th>
             <th>Bidder</th>
-            <th>Proposal Text</th>
+            <th>Proposal</th>
             <th>Bid Amount</th>
             <th>Terms</th>
             <th>Status</th>
             <% if (user.id === project.ClientId && project.status === 'open') { %>  
                 <th>Action</th>
             <% } %>     
+            <th>Invoice</th> <!-- New column for invoice -->
         </tr>
-
+    
         <% bids.forEach((bid, i) => { %>
             <tr>
                 <td><%= i + 1 %></td>
@@ -31,7 +32,6 @@
                 <td><%= formatToCurrency(bid.bidAmount) %></td>
                 <td><%= bid.terms %> days</td>
                 
-                
                 <% if (bid.status === 'pending') { %>
                     <td style="background-color: rgb(156, 156, 86);"><%= bid.status %></td>
                 <% } else if (bid.status === 'accepted') { %>
@@ -39,14 +39,26 @@
                 <% } else if (bid.status === 'rejected') { %>
                     <td style="background-color: red;"><%= bid.status %></td>
                 <% } %>
-
+    
                 <% if (user.id === project.ClientId && project.status === 'open') { %>  
                     <td>
                         <button onclick="location.href='/projects/<%= project.id %>/bids/<%= bid.id %>/accept'">Accept</button>
                     </td>
                 <% } %>
+    
+                <!-- Button for generating the invoice -->
+                <td>
+                    <% if (bid.status === 'accepted') { %>
+                        <a href="/projects/<%= project.id %>/bids?generateInvoice=<%= bid.id %>">
+                            Download Invoice
+                        </a>
+                    <% } else { %>
+                        Not available
+                    <% } %>
+                </td>
             </tr>
         <% }) %>
     </table>
+    
 </body>
 </html>

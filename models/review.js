@@ -16,11 +16,32 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Review.init({
-    rating: DataTypes.INTEGER,
+    rating: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        min: {
+          args: 1,
+          msg: 'Rating value minimum 1',
+        },
+        max: {
+          args: 5,
+          msg: 'Rating value maximum 5'
+        }
+      },
+    },
     comment: DataTypes.TEXT,
     ProfileId: DataTypes.INTEGER,
     ClientId: DataTypes.INTEGER
   }, {
+    hooks: {
+      beforeCreate: (review, options) => {
+        if (!review.comment) {
+          review.rating = 0
+          review.comment = 'auto-generated: CONTRACT DONE'
+        }
+      },
+    },
     sequelize,
     modelName: 'Review',
   });

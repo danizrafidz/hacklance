@@ -2,7 +2,7 @@
     {
         "id": 1,
         "bio": "Experienced web designer.",
-        "profilePicture": "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg",
+        "profilePicture": "https://fiverr-res.cloudinary.com/image/upload/t_profile_original,q_auto,f_auto/v1/attachments/profile/photo/f41d603734466618e042e4fe70e96917-1723491351980/dd014943-2a0b-4381-9984-1e8428a39ff2.jpg",
         "portfolioURL": "https://portfolio.boblancer.com",
         "HacklancerId": 2,
         "SkillId": 1
@@ -10,7 +10,7 @@
     {
         "id": 2,
         "bio": "Backend and mobile app developer.",
-        "profilePicture": "https://images.pexels.com/photos/1239292/pexels-photo-1239292.jpeg",
+        "profilePicture": "https://fiverr-res.cloudinary.com/image/upload/t_profile_original,q_auto,f_auto/v1/attachments/profile/photo/17e0b4844f7d748332491b4a20a663e4-1684408135835/9213e916-dae5-4ce3-a05f-45b8aceaa150.jpg",
         "portfolioURL": "https://portfolio.charlie.com",
         "HacklancerId": 3,
         "SkillId": 2
@@ -18,7 +18,7 @@
     {
         "id": 3,
         "bio": "Full-stack developer.",
-        "profilePicture": "https://images.pexels.com/photos/1239293/pexels-photo-1239293.jpeg",
+        "profilePicture": "https://fiverr-res.cloudinary.com/image/upload/t_profile_original,q_auto,f_auto/v1/attachments/profile/photo/f2026b391de02b324a3bd0804904b0ce-1648535503407/fda4482f-51a9-4ee7-b82c-89b001700ada.jpg",
         "portfolioURL": "https://portfolio.danalancer.com",
         "HacklancerId": 4,
         "SkillId": 1

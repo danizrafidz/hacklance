@@ -3,6 +3,15 @@ const { Op, Sequelize } = require('sequelize')
 const { formatToCurrency } = require('../helpers/helpers')
 const bcrypt = require('bcryptjs')
 
+const easyinvoice = require('easyinvoice');
+const fs = require('fs'); // For saving the generated invoice to a file (optional)
+const path = require('path'); // For handling file paths
+
+const TimeAgo = require('javascript-time-ago')
+const en = require('javascript-time-ago/locale/en')
+TimeAgo.addDefaultLocale(en)
+const timeAgo = new TimeAgo('en-US')
+
 class Controller {
     static async home(req, res) {
         try {
@@ -59,7 +68,7 @@ class Controller {
                 ],
                 where: { id: HacklancerId }
             })
-            res.render('hacklancer-profile', { hacklancer })
+            res.render('hacklancer-profile', { hacklancer, formatToCurrency, timeAgo })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -67,13 +76,13 @@ class Controller {
     }
     static async projects(req, res) { //projects
         try {
+            let { sort, search } = req.query
             const { userSession } = req.session
 
-            let projects = await Project.findAll({
-                include: [User, Skill, Bid],
-                order: [['status', 'ASC']]
-            })
-            res.render('projects', { user: userSession, projects, formatToCurrency })
+            let skills = await Skill.findAll()
+            let projects = await Project.sortAndSearch(sort, search, User, Skill, Bid)
+
+            res.render('projects', { user: userSession, projects, skills, formatToCurrency, timeAgo })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -100,38 +109,110 @@ class Controller {
             res.send(error)
         }
     }
-    static async bids(req, res) { //projects/:ProjectId/bids
-        try {
-            const { userSession } = req.session
-            const { ProjectId } = req.params
 
-            let project = await Project.findByPk(ProjectId)
+    static async bids(req, res) {
+        try {
+            const { userSession } = req.session;
+            const { ProjectId } = req.params;
+
+            let project = await Project.findOne({
+                where: {
+                    id: ProjectId
+                },
+                include: User
+            });
             let bids = await Bid.findAll({
                 include: [
-                    {
-                        model: Project,
-                    },
-                    {
-                        model: User,
-                        as: 'Hacklancer'
-                    }
+                    { model: Project },
+                    { model: User, as: 'Hacklancer' }
                 ],
-                where: {
-                    ProjectId: ProjectId,
-                },
+                where: { ProjectId: ProjectId },
                 order: [['status', 'ASC']]
-            })
-            res.render('bids', { user: userSession, bids, project, formatToCurrency })
+            });
+
+            console.log(project);
+
+
+            // Example: Generate an invoice if a bid is accepted (add this logic as needed)
+
+            const generateInvoice = async (bid) => {
+                // Ensure the 'invoices' directory exists
+                const invoicesDir = path.join(__dirname, '../invoices');
+                if (!fs.existsSync(invoicesDir)) {
+                    fs.mkdirSync(invoicesDir); // Create the directory
+                }
+
+                // Invoice data (customize as needed)
+                const data = {
+                    "documentTitle": "Invoice", // Default is 'INVOICE'
+                    "currency": "USD",
+                    "taxNotation": "vat", // or gst
+                    "marginTop": 25,
+                    "marginRight": 25,
+                    "marginLeft": 25,
+                    "marginBottom": 25,
+                    "sender": {
+                        "company": project.User.username, //  The client
+                        "address": project.User.email,
+                        "zip": `Id ${project.User.id}`
+                    },
+                    "client": {
+                        "company": bid.Hacklancer.username, // The bidder - Hacklancer
+                        "address": bid.Hacklancer.email,
+                        "zip": `Id ${bid.Hacklancer.id}`
+                    },
+                    "invoiceNumber": String(bid.id),
+                    "invoiceDate": new Date().toISOString().slice(0, 10), // Current date
+                    "products": [
+                        {
+                            "quantity": 1,
+                            "description": `Bid for project: ${project.title}`,
+                            "tax": 0, // Adjust based on tax if needed
+                            "price": bid.bidAmount
+                        }
+                    ],
+                    "bottomNotice": "This is a hacklance-generated invoice."
+                };
+
+                // Generate the invoice
+                const invoice = await easyinvoice.createInvoice(data);
+
+                // Define the file path
+                const invoicePath = path.join(invoicesDir, `invoice_${bid.id}.pdf`);
+
+                // Save the invoice as a PDF file
+                fs.writeFileSync(invoicePath, invoice.pdf, 'base64');
+
+                return invoice.pdf; // Return PDF data
+            };
+
+            // Example: Add a route to trigger invoice generation for an accepted bid
+            if (req.query.generateInvoice) {
+                const bidId = req.query.generateInvoice;
+                const bid = bids.find(bid => bid.id == bidId);
+                if (bid) {
+                    const invoicePdf = await generateInvoice(bid);
+
+                    // Serve the PDF directly to the browser
+                    res.setHeader('Content-Type', 'application/pdf');
+                    res.setHeader('Content-Disposition', `attachment; filename=invoice_${bid.id}.pdf`);
+                    return res.send(Buffer.from(invoicePdf, 'base64'));
+                }
+            }
+
+            res.render('bids', { user: userSession, bids, project, formatToCurrency });
         } catch (error) {
             console.log(error);
-            res.send(error)
+            res.send(error);
         }
     }
 
     static async renderCreateProject(req, res) { //projects/create [GET]
         try {
+            const { errors } = req.query
+
             let skills = await Skill.findAll()
-            res.render('clients/create-project', { skills })
+            res.render('clients/create-project', { skills, errors })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -140,20 +221,27 @@ class Controller {
     static async handlerCreateProject(req, res) { //projects/create [POST]
         try {
             const { userSession } = req.session
-            const { title, description, budget, SkillId } = req.body
+            const { title, description, imageURL, budget, SkillId } = req.body
 
-            await Project.create({ title, description, budget, SkillId, ClientId: userSession.id })
+            await Project.create({ title, description, imageURL, budget, SkillId, ClientId: userSession.id })
             res.redirect('/projects')
         } catch (error) {
-            console.log(error);
-            res.send(error)
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                let errors = error.errors.map(err => err.message)
+                res.redirect(`/projects/create?errors=${errors}`)
+            } else {
+                console.log(error);
+                res.send(error)
+            }
         }
     }
 
     static async renderCreateService(req, res) { //services/create [GET]
         try {
+            const { errors } = req.query
+
             let skills = await Skill.findAll()
-            res.render('hacklancers/create-service', { skills })
+            res.render('hacklancers/create-service', { skills, errors })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -167,17 +255,23 @@ class Controller {
             await Service.create({ title, description, price, terms, SkillId, HacklancerId: userSession.id })
             res.redirect('/services')
         } catch (error) {
-            console.log(error);
-            res.send(error)
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                let errors = error.errors.map(err => err.message)
+                res.redirect(`/services/create?errors=${errors}`)
+            } else {
+                console.log(error);
+                res.send(error)
+            }
         }
     }
 
     static async renderBidProject(req, res) { //projects/:ProjectId/bids/bid [GET]
         try {
+            const { errors } = req.query
             const { ProjectId } = req.params
 
             let project = await Project.findByPk(ProjectId)
-            res.render('hacklancers/bid-project', { project })
+            res.render('hacklancers/bid-project', { project, errors })
         } catch (error) {
             console.log(error);
             res.send(error)
@@ -192,8 +286,14 @@ class Controller {
             await Bid.create({ ProjectId, HacklancerId: userSession.id, proposalText, bidAmount, terms })
             res.redirect(`/projects/${ProjectId}/bids`)
         } catch (error) {
-            console.log(error);
-            res.send(error)
+            const { ProjectId } = req.params
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                let errors = error.errors.map(err => err.message)
+                res.redirect(`/projects/${ProjectId}/bids/bid?errors=${errors}`)
+            } else {
+                console.log(error);
+                res.send(error)
+            }
         }
     }
 
@@ -276,10 +376,16 @@ class Controller {
     }
     static async completeContract(req, res) { //contracts/:ContractId/complete
         try {
+            const { errors } = req.query
             const { userSession } = req.session
             const { ContractId } = req.params
 
-            let contract = await Contract.findByPk(ContractId)
+            let contract = await Contract.findOne({
+                where: {
+                    id: ContractId
+                },
+                include: User
+            })
             await Contract.update(
                 { isCompleted: true },
                 {
@@ -307,7 +413,26 @@ class Controller {
                 });
             }
 
-            res.redirect('/contracts')
+            res.render('clients/review', { contract, formatToCurrency, errors })
+        } catch (error) {
+            console.log(error);
+            res.send(error)
+        }
+    }
+    static async handlerReview(req, res) {
+        try {
+            const { userSession } = req.session
+            const { HacklancerId } = req.params
+            const { rating, comment } = req.body
+
+            let hacklancer = await User.findOne({
+                where: {
+                    id: HacklancerId
+                },
+                include: HacklancerProfile
+            })
+            await Review.create({ rating, comment, ProfileId: hacklancer.HacklancerProfile.id, ClientId: userSession.id, })
+            res.redirect(`/hacklancer/profile/${HacklancerId}`)
         } catch (error) {
             console.log(error);
             res.send(error)
